@@ -42,7 +42,6 @@ export class JoinComponent {
     this.loading = true;
     const code = this.joinForm.value.code;
     if (this.step === 'code') {
-      // Only send code to check if player exists
       this.http.post<any>(`/api/codes/${encodeURIComponent(code)}/claim`, {}).subscribe({
         next: (res) => {
           this.loading = false;
@@ -61,10 +60,10 @@ export class JoinComponent {
         error: (err) => {
           this.error = err.error?.message || 'An error occurred';
           this.loading = false;
+          setTimeout(() => { this.error = null; }, 2000);
         }
       });
     } else {
-      // Create new player
       const payload = {
         nickname: this.joinForm.get('anonymous')?.value ? undefined : this.joinForm.value.nickname,
         anonymous: this.joinForm.value.anonymous
@@ -82,6 +81,7 @@ export class JoinComponent {
         error: (err) => {
           this.error = err.error?.message || 'An error occurred';
           this.loading = false;
+          setTimeout(() => { this.error = null; }, 2000);
         }
       });
     }

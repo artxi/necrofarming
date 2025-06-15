@@ -1,0 +1,99 @@
+<div class="my-picks-container">
+  <h2>My Picks</h2>
+  <div *ngIf="loading" class="spinner">Loading...</div>
+  <ng-container *ngIf="!picksLockedAt">
+    <table class="locked-table" *ngIf="hasDepartedPicks">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Cause</th>
+          <th>Departure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let pick of picksArray.value; let i = index">
+          <tr *ngIf="getEmployee(pick.employee)?.departureDate"
+              [ngClass]="getEmployee(pick.employee)?.departureDate ? 'success-row' : ''"
+              [attr.title]="getEmployee(pick.employee)?.departureDate ? (pick.cause === getEmployee(pick.employee)?.departureCause ? 'Employee departed, and was ' + getEmployee(pick.employee)?.departureCause : 'Employee departed, but was ' + getEmployee(pick.employee)?.departureCause) : null">
+            <ng-container *ngIf="getEmployee(pick.employee) as emp">
+              <td>{{ emp.name }}</td>
+              <td>
+                <span *ngIf="emp.departureDate && pick.cause !== emp.departureCause" class="wrong-cause">
+                  {{ pick.cause | titlecase }}
+                  <span class="wrong-icon">&#10060;</span>
+                </span>
+                <span *ngIf="emp.departureDate && pick.cause === emp.departureCause" class="correct-cause">
+                  {{ pick.cause | titlecase }}
+                  <span class="check-icon">✔️</span>
+                </span>
+              </td>
+              <td>
+                {{ emp.departureDate | date:'shortDate' }}
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <form [formGroup]="picksForm" (ngSubmit)="savePicks()">
+      <div formArrayName="picks">
+        <ng-container *ngFor="let pick of picksArray.controls; let i = index">
+          <div [formGroupName]="i" class="pick-row" *ngIf="!getEmployee(picksArray.value[i].employee)?.departureDate">
+            <label>Name:
+              <select formControlName="employee">
+                <option value="" disabled>Select...</option>
+                <option *ngFor="let emp of getAvailableEmployees(i)" [value]="emp._id">{{ emp.name }}</option>
+              </select>
+            </label>
+            <label>Cause:
+              <select formControlName="cause">
+                <option value="voluntary">Voluntary</option>
+                <option value="fired">Fired</option>
+              </select>
+            </label>
+          </div>
+        </ng-container>
+      </div>
+      <button type="submit" [disabled]="loading || saveDisabled">Save</button>
+      <button type="button" (click)="lockPicks()" [disabled]="loading || !areAllPicksFilled()">Lock My Picks</button>
+    </form>
+  </ng-container>
+  <div *ngIf="picksLockedAt">
+    <table class="locked-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Cause</th>
+          <th>Departure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let pick of picksArray.value; let i = index">
+          <tr [ngClass]="getEmployee(pick.employee)?.departureDate ? 'success-row' : ''"
+              [attr.title]="getEmployee(pick.employee)?.departureDate ? (pick.cause === getEmployee(pick.employee)?.departureCause ? 'Employee departed, and was ' + getEmployee(pick.employee)?.departureCause : 'Employee departed, but was ' + getEmployee(pick.employee)?.departureCause) : null">
+            <ng-container *ngIf="getEmployee(pick.employee) as emp">
+              <td>{{ emp.name }}</td>
+              <td>
+                <span *ngIf="emp.departureDate && pick.cause !== emp.departureCause" class="wrong-cause">
+                  {{ pick.cause | titlecase }}
+                  <span class="wrong-icon">&#10060;</span>
+                </span>
+                <span *ngIf="emp.departureDate && pick.cause === emp.departureCause" class="correct-cause">
+                  {{ pick.cause | titlecase }}
+                  <span class="check-icon">✔️</span>
+                </span>
+              </td>
+              <td>
+                {{ emp.departureDate ? (emp.departureDate | date:'shortDate') : '—' }}
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <hr />
+    <div class="locked-msg">Your picks are locked as of {{ picksLockedAt | date:'short' }}.</div>
+  </div>
+  <div *ngIf="success" class="success">{{ success }}</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+</div>

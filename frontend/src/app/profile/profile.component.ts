@@ -52,10 +52,12 @@ export class ProfileComponent implements OnInit {
         localStorage.setItem('player', JSON.stringify(res));
         AppComponent.setLoggedIn(true);
         this.success = 'Profile updated!';
+        setTimeout(() => { this.success = null; }, 2000);
       },
       error: (err) => {
         this.error = err.error?.message || 'An error occurred';
         this.loading = false;
+        setTimeout(() => { this.error = null; }, 2000);
       }
     });
   }

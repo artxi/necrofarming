@@ -1,12 +1,31 @@
 nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background: linear-gradient(90deg, #232526 0%, #414345 100%);
   padding: 1rem 0.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   border-radius: 0 0 12px 12px;
   margin-bottom: 2rem;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.nav-separator {
+  width: 2px;
+  height: 32px;
+  background: #fff3;
+  margin: 0 1.5rem;
+  border-radius: 2px;
 }
 
 .nav-link {

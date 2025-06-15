@@ -1,8 +1,14 @@
 <nav>
-  <a routerLink="/" class="nav-link">Home</a>
-  <a *ngIf="!isLoggedIn" routerLink="/join" class="nav-link">Join</a>
-  <a *ngIf="isLoggedIn" routerLink="/profile" class="nav-link">Profile</a>
-  <a *ngIf="isLoggedIn" href="#" class="nav-link" (click)="logout(); $event.preventDefault()">Logout</a>
+  <div class="nav-left">
+    <a routerLink="/" class="nav-link">Home</a>
+    <a *ngIf="!isLoggedIn" routerLink="/join" class="nav-link">Join</a>
+    <a *ngIf="isLoggedIn" routerLink="/my-picks" class="nav-link">My Picks</a>
+  </div>
+  <div class="nav-separator" *ngIf="isLoggedIn"></div>
+  <div class="nav-right" *ngIf="isLoggedIn">
+    <a routerLink="/profile" class="nav-link">Profile</a>
+    <a href="#" class="nav-link" (click)="logout(); $event.preventDefault()">Logout</a>
+  </div>
   <!-- Future: <a routerLink="/leaderboard" class="nav-link">Leaderboard</a> -->
   <!-- Future: <a routerLink="/guesses" class="nav-link">Aggregated Guesses</a> -->
 </nav>

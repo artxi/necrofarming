@@ -1,4 +1,69 @@
-<div class="home-container">
-  <h1>Welcome to Necrofarming!</h1>
-  <p class="subtitle">Predict, play, and see how your guesses stack up!</p>
+<div class="home-container pretty-welcome">
+  <h1 class="pretty-title">Welcome to <span class="pretty-necro">Necrofarming!</span></h1>
+  <p class="pretty-subtitle"><span class="pretty-predict">Predict</span>, <span class="pretty-play">Play</span>, and <span class="pretty-stack">see how your guesses stack up!</span></p>
 </div>
+<div *ngIf="loading" class="spinner">Loading aggregated picks...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+<table *ngIf="!loading && !error && aggregated.length" class="agg-table modern">
+  <thead>
+    <tr>
+      <th class="agg-rank">#</th>
+      <th>Name</th>
+      <th>Cause</th>
+      <th>Total picks</th>
+      <th>Predicted by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let row of aggregatedSorted; let i = index">
+      <tr [ngClass]="{
+            'success-row': getEmployee(row.employee)?.departureDate && getEmployee(row.employee)?.departureCause !== 'fired',
+            'fired-row': getEmployee(row.employee)?.departureCause === 'fired'
+          }">
+        <td class="agg-rank">{{ i + 1 }}</td>
+        <td class="agg-emp-name">{{ row.name }}</td>
+        <td class="agg-cause">
+          <ng-container *ngIf="getEmployee(row.employee)?.departureCause; else stillWithUs">
+            <span class="agg-indicator" [ngClass]="getEmployee(row.employee)?.departureCause === 'fired' ? 'fired-indicator' : 'vol-indicator'">
+              <span class="indicator-text" style="font-weight: bold;">
+                {{ getEmployee(row.employee)?.departureCause | titlecase }}
+              </span>
+            </span>
+          </ng-container>
+          <ng-template #stillWithUs>
+            <span class="muted">Still with us...</span>
+          </ng-template>
+        </td>
+        <td class="agg-count">
+          <span class="agg-count-tooltip-wrapper">
+            <span class="agg-count-value" tabindex="0">
+              {{ row.count }}
+              <span class="agg-count-info" aria-label="Show breakdown">&#9432;</span>
+            </span>
+            <span class="agg-count-tooltip">
+              <span><strong>Voluntary:</strong> {{ row.voluntary }}</span><br>
+              <span><strong>Fired:</strong> {{ row.fired }}</span>
+            </span>
+          </span>
+        </td>
+        <td class="agg-predicted">
+          <button *ngIf="getEmployee(row.employee)?.departureDate && row.pickers.length" (click)="row._expanded = !row._expanded" class="picker-toggle" [attr.aria-label]="row._expanded ? 'Hide predicted by' : 'Show predicted by'">
+            <span class="chevron chevron-line" [ngClass]="row._expanded ? 'up' : 'down'">
+              <!-- SVG line chevron -->
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 7L9 11L13 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="row._expanded">
+        <td colspan="8" class="picker-row">
+          <strong>Predicted by:</strong>
+          <ng-container *ngIf="row.pickers.length; else anon">{{ row.pickers.join(', ') }}</ng-container>
+          <ng-template #anon><span class="muted">Anonymous only</span></ng-template>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

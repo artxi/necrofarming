@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CodeModule } from './domain/code/code.module';
 import { PlayerModule } from './domain/player/player.module';
+import { EmployeeModule } from './domain/employee/employee.module';
 
 const mongoUri = process.env.MONGODB_URI;
 if (!mongoUri) {
@@ -17,6 +18,7 @@ if (!mongoUri) {
     MongooseModule.forRoot(mongoUri),
     CodeModule,
     PlayerModule,
+    EmployeeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

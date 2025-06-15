@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    // Remove player session (for now, just clear localStorage/sessionStorage)
+    // Remove player session
     localStorage.removeItem('player');
     sessionStorage.removeItem('player');
     AppComponent.setLoggedIn(false);

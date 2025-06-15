@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-export type Guess = {
+export type Pick = {
   employee: Types.ObjectId;
   cause: 'voluntary' | 'fired';
   date: Date;
@@ -19,10 +19,10 @@ export class Player extends Document {
   anonymous: boolean;
 
   @Prop({ type: [Object], default: [] })
-  guesses: Guess[];
+  picks: Pick[];
 
   @Prop()
-  lockedAt?: Date;
+  picksLockedAt?: Date;
 }
 
 export const PlayerSchema = SchemaFactory.createForClass(Player);

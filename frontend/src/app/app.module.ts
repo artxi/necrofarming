@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { JoinComponent } from './join/join.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MyPicksComponent } from './my-picks/my-picks.component';
 import { AuthGuard } from './auth.guard';
 import { routes } from './app.routes';
 
@@ -15,7 +16,8 @@ import { routes } from './app.routes';
     AppComponent,
     JoinComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    MyPicksComponent
   ],
   imports: [
     BrowserModule,
