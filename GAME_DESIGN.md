@@ -38,4 +38,5 @@
 - MVP: admin input for departures and database updates for management.
 - Notifications and admin dashboard planned for future versions.
 - Late entries may be allowed in the future, with penalties or minimum validity periods for guesses.
+- **Post-MVP:** Add JWT authentication for secure player sessions and API protection.
 - Possible future integration with company systems (e.g., Slack).

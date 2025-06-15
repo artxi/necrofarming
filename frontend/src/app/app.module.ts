@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { JoinComponent } from './join/join.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from './auth.guard';
 import { routes } from './app.routes';
 
 @NgModule({
@@ -22,7 +23,7 @@ import { routes } from './app.routes';
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
