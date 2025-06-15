@@ -1,0 +1,21 @@
+<form [formGroup]="joinForm" (ngSubmit)="joinCode()" class="claim-form">
+  <label>
+    Code:
+    <input formControlName="code" required [readonly]="step === 'details'" />
+  </label>
+  <ng-container *ngIf="step === 'details'">
+    <label>
+      <input type="checkbox" formControlName="anonymous" (change)="onAnonymousChange()" />
+      Anonymous
+    </label>
+    <label *ngIf="!joinForm.get('anonymous')?.value">
+      Nickname:
+      <input formControlName="nickname" />
+    </label>
+  </ng-container>
+  <button type="submit" [disabled]="loading || joinForm.invalid">
+    Join
+  </button>
+</form>
+
+<div *ngIf="error" class="error">{{ error }}</div>
