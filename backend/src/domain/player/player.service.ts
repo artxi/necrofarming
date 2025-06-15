@@ -14,4 +14,8 @@ export class PlayerService {
   async createPlayer(code: string, nickname?: string, anonymous = false) {
     return this.playerModel.create({ code, nickname, anonymous });
   }
+
+  async updatePlayer(id: string, update: Partial<Player>) {
+    return this.playerModel.findByIdAndUpdate(id, update, { new: true });
+  }
 }

@@ -51,7 +51,7 @@ export class JoinComponent {
               localStorage.setItem('player', JSON.stringify(res.player));
               AppComponent.setLoggedIn(true);
             }
-            this.router.navigate(['/']);
+            this.router.navigate(['/profile']);
           } else {
             this.step = 'details';
             this.joinForm.get('anonymous')?.enable();
@@ -77,7 +77,7 @@ export class JoinComponent {
             localStorage.setItem('player', JSON.stringify(res.player));
             AppComponent.setLoggedIn(true);
           }
-          this.router.navigate(['/']);
+          this.router.navigate(['/profile']);
         },
         error: (err) => {
           this.error = err.error?.message || 'An error occurred';

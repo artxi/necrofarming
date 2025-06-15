@@ -1,0 +1,20 @@
+<div class="profile-container" *ngIf="player">
+  <h2>Profile</h2>
+  <div class="profile-code">Your Code: <strong>{{ player.code }}</strong></div>
+  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+    <label *ngIf="!profileForm.get('anonymous')?.value">
+      Nickname:
+      <input formControlName="nickname" />
+    </label>
+    <label>
+      <input type="checkbox" formControlName="anonymous" />
+      Anonymous
+    </label>
+    <button type="submit" [disabled]="loading || profileForm.invalid">Save</button>
+  </form>
+  <div *ngIf="success" class="success">{{ success }}</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+</div>
+<div *ngIf="!player">
+  <p>You are not logged in.</p>
+</div>
