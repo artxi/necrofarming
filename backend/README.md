@@ -97,9 +97,9 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
-# Necrofarming Backend
+# CrowdBoinas Backend
 
-This is the backend API for Necrofarming, built with NestJS and MongoDB (Mongoose).
+This is the backend API for CrowdBoinas, built with NestJS and MongoDB (Mongoose).
 
 ## Setup
 - Install dependencies: `npm install`
@@ -116,7 +116,7 @@ This is the backend API for Necrofarming, built with NestJS and MongoDB (Mongoos
 
 # Backend
 
-NestJS API for Necrofarming.
+NestJS API for CrowdBoinas.
 
 - `npm install`
 - `npm run start:dev`

@@ -1,6 +1,6 @@
-# Frontend
+# CrowdBoinas Frontend
 
-Angular app for Necrofarming.
+Angular app for CrowdBoinas.
 
 ## Development server
 

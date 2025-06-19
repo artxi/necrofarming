@@ -1,4 +1,4 @@
-# Company “Deathlist” Game Design
+# CrowdBoinas Game Design
 
 ## Game Basics
 - Workers predict which employees will no longer be with the company by year-end.
